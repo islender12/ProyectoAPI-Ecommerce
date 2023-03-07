@@ -26,6 +26,7 @@ class AuthTest extends TestCase
 
         $user = User::create([
             'fullname' => 'Islender',
+            'role' => User::CLIENT,
             'email' => 'example@example.com',
             'password' => bcrypt("123456")
         ]);
