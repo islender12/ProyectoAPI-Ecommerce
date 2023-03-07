@@ -16,12 +16,6 @@ class AuthTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
 
     public function test_login()
     {
@@ -73,8 +67,8 @@ class AuthTest extends TestCase
                 'password' => bcrypt('123456')
             ]
         );
-        // Se espera que cuando se registre no haya ningun error
-        $response->assertStatus(200);
+        // Se espera que cuando se registre no haya ningun error y el recurso sea creado
+        $response->assertStatus(201); // 201 created La solicitud ha tenido éxito y se ha creado un nuevo recurso como resultado de ello.
         $this->assertArrayHasKey('access_token', $response->json());
     }
 
@@ -104,7 +98,7 @@ class AuthTest extends TestCase
             'email' => 'example@example.com'
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(422); // Status 422 Unprocessable Entity  Indica que el servidor ha entendido la solicitud del cliente, pero no puede procesarla debido a un problema con la entidad enviada en la solicitud
         $response->assertJsonValidationErrors(['password']); // Verifica si 'password' es un error de validacion
     }
 
@@ -131,4 +125,5 @@ class AuthTest extends TestCase
 
         $response->assertStatus(401); // status 401 unauthorized pues esta colocando credenciales incorrectas
     }
+
 }

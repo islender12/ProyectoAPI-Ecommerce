@@ -174,13 +174,6 @@ Como segundo paso debemos buscar un color verde Hacer que prueba Pase { Color Ve
 Y tercer paso refactorizar
 
 
-De la misma forma crearemos los test para registro
-
-
-
-
-
-
-
+De la misma forma crearemos los test para registro, user ...
 
 

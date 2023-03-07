@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -37,10 +38,26 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        $access_token = $user->createToken('Auth token')->accessToken;
-        return response([
+        return response()->json([
             'user' => $user,
-            'access_token' => $access_token
+        ], 201);
+    }
+
+    public function me()
+    {
+        return response([
+            'user' => auth()->user(),
         ]);
+    }
+
+    public function logout()
+    {
+        // almacenamos el token | usuario autenticado y revocamos dicho token
+        // Esto eliminará el revocará el token
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response()->json([
+            'message' => 'Ha Cerrado Sesion Correctamente'
+        ], 200);
     }
 }
